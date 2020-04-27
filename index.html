@@ -21,8 +21,9 @@
             <a href="#" class="navbar-brand">
                 <img src="dist_L/logo/L3.png" alt="L Logo" class="brand-image elevation-3"
                     style="opacity: .8;margin-right: -20px;">
-                <span class="brand-text font-weight-light">andini &bs VSCode Snippets generator</span>
-                
+                <span class="brand-text font-weight-light">andini &nbsp&nbsp&nbsp&nbsp&nbsp VSCode Snippets
+                    generator</span>
+
             </a>
         </nav>
         <div class="content-wrapper">
@@ -69,13 +70,14 @@
                                                     <div class="select2-primary">
                                                         <select id="scope" class="select2bs4" multiple="multiple"
                                                             data-placeholder="Select a scope" style="width: 100%;">
-                                                            <option>PHP</option>
-                                                            <option>JavaScript</option>
-                                                            <option>HTML</option>
-                                                            <option>MySql</option>
-                                                            <option>VisualBasic</option>
-                                                            <option>Perl</option>
-                                                            <option>CSS</option>
+                                                            <option>php</option>
+                                                            <option>javascript</option>
+                                                            <option>html</option>
+                                                            <option>mysql</option>
+                                                            <option>visualbasic</option>
+                                                            <option>perl</option>
+                                                            <option>css</option>
+                                                            <option>typescript</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -163,8 +165,18 @@
                                     <h3 class=" card-title">Snippets result</h3>
                                 </div>
                                 <div class="card-body">
+                                    <div class=" btn-group">
+                                        <button class="btn btn-app">
+                                            <i class="fas fa-redo" onclick="load_from_box('jsonglobals'); "
+                                                title="reset to last changues"></i> Reset
+                                        </button>
+                                        <button class="btn btn-app" onclick="extract_json('json_editor',' '); "
+                                            title="save changues to server">
+                                            <i class="fas fa-save"></i> Update
+                                        </button>
+                                    </div>
                                     <div class="col-12">
-                                        <textarea id="jsonglobals" rows="4"  class="form-control" >
+                                        <textarea id="jsonglobals" rows="4" class="form-control">
                                         </textarea>
                                     </div>
                                     <div>
@@ -176,6 +188,14 @@
                     </div>
                 </div>
             </section>
+
+            <!-- 
+                <pre data-role="value" data-type="string">
+                    <form class="edit_box">
+                        <input autocomplete="off" placeholder="Click to edit" tooltip="Click to edit" type="text" name="value" style="width: auto; height: auto;">
+                    </form>
+                </pre>
+            -->
 
         </div>
         <footer class="main-footer">
@@ -192,11 +212,13 @@
     <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <script src="dist/js/adminlte.min.js"></script>
     <script src="dist_L/jsonedit/jsonedit.js"></script>
+    <script src="dist_L/jsonedit/jquery.contextMenu.js"></script>
+    <script src="dist_L/jsonedit/jeditable.js"></script>
     <script>
-        var snippet={};
+        var snippet = {};
         $(function () {
-            $('.select2bs4').select2();
 
+            $('.select2bs4').select2();
             $("#addTab").on('click', function () {
                 var c = counter();
                 var txtToAdd = "${" + c + ":example}";
@@ -213,7 +235,6 @@
             $('#doit').on('click', function () {
                 doJsonCode();
             })
-
         })
         function addVar(txtToAdd, s, e) {
             var $txt = $("#bodyCode");
@@ -232,19 +253,19 @@
             return count;
         }
         function doJsonCode() {
-            
-            o=(jsonObje())
-            json_editor('json_editor', JSON.stringify(o));
-            $('#jsonglobals').text(JSON.stringify(o))
-            console.log(JSON.stringify(o));
+            var o = JSON.stringify(jsonObje(),null," ")
+            json_editor('json_editor', o);
+            $('#jsonglobals').text(o)
+            // add the jquery editing magic
+            apply_editlets();
         }
-        function jsonObje(){
+        function jsonObje() {
+            var scopes = $("#scope").val();
             var snp = {};
             snp["description"] = $("input[name=description]").val();
             snp["body"] = $("#bodyCode").val();
             snp["prefix"] = $("input[name=prefix]").val();
-            snp["scope"] = $("#scope").val();
-            
+            snp["scope"] = scopes.join();
             snippet[$("input[name=name]").val()] = snp;
             return snippet;
         }

@@ -50,7 +50,7 @@
     function save_ws(input, file = "jsonsave.php") {
         $json = glean_json(input, 0);
         //console.log($json);
-        $j.post(file, {
+        $.post(file, {
                 json: $json
             },
             function (data) {
@@ -107,7 +107,7 @@
     };
     // copy the workspace back into the textarea
     function extract_json(divid, indent) {
-        $('.jsoninput').val(glean_json(divid, indent));
+        $('#jsonglobals').val(glean_json(divid, indent));
     }
     // convert the work area to a json string
     function glean_json(divid, indent) {
@@ -156,7 +156,6 @@
         $("span.collapse_box").remove();
         $("div.inline_add_box").remove();
         $(".context-menu").remove();
-
     }
 
     function apply_editlets() {
@@ -215,11 +214,13 @@
 
         // make the fields editable in place
         $('span[data-role="key"]').editable(easy_save_value, {
-            cssclass: 'edit_box'
+            cssclass: 'edit_box',
+            placeholder: '---'
         });
         $('[data-type="string"]').editable(save_value, {
             cssclass: 'edit_box',
-            width : 'auto'
+            width : 'auto',
+            placeholder: "empty"
         });
         $('[data-type="number"]').editable(save_value, {
             cssclass: 'edit_box'
@@ -250,7 +251,8 @@
     function load_from_box(jsonfile) {
 
         $('#json_editor').html('');
-        json_editor('json_editor', $('#' + jsonfile).val());
+        var txt =$('#' + jsonfile).val();
+        json_editor('json_editor',txt);
 
         // add the jquery editing magic
         apply_editlets();

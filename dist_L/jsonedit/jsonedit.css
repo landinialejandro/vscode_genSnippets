@@ -42,10 +42,6 @@ div[data-role="arrayitem"]>div {
     margin: 10px;
 }
 
-div[data-role="value"] {
-    margin-left: 20px;
-}
-
 div[data-role="prop"],
 div[data-role="arrayitem"] {
     /* border: 0px solid #ccf; */
