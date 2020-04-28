@@ -39,6 +39,9 @@
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
                                                 class="fas fa-expand"></i></button>
+                                        <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Help"
+                                            data-widget="chat-pane-toggle">
+                                            <i class="fas fa-question"></i></button>
                                     </div>
                                 </div>
                                 <form role="form">
@@ -123,13 +126,15 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
+                                                    <label>Placeholder</label>
+                                                    <br>
                                                     <div class="btn-group">
                                                         <a id="addTab" class="btn btn-app">
-                                                            <i class="fas fa-play"></i> Add Tab
+                                                            <i class="fas fa-play"></i> Add
                                                         </a>
                                                         <a id="resetTab" class="btn btn-app">
                                                             <span class="badge bg-warning">0</span>
-                                                            <i class="fas fa-bullhorn"></i> Reset Tab
+                                                            <i class="fas fa-bullhorn"></i> Reset
                                                         </a>
                                                     </div>
                                                 </div>
@@ -156,72 +161,93 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="card card-success direct-chat direct-chat-primary">
+                            <div class="card card-success direct-chat ">
                                 <div class=" card-header">
                                     <h3 class=" card-title">Snippets result</h3>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
                                                 class="fas fa-expand"></i></button>
-                                        <button type="button" class="btn btn-tool" data-toggle="tooltip"
-                                            title="Contacts" data-widget="chat-pane-toggle">
-                                            <i class="fas fa-comments"></i></button>
+                                        <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Help"
+                                            data-widget="chat-pane-toggle">
+                                            <i class="fas fa-question"></i></button>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <div class="direct-chat-messages">
-                                        <div class=" btn-group">
-                                            <button class="btn btn-app">
-                                                <i class="fas fa-redo" onclick="load_from_box('jsonglobals'); "
-                                                    title="reset to last changues"></i> Reset
-                                            </button>
-                                            <button class="btn btn-app" onclick="extract_json('json_editor',' '); "
-                                                title="save changues to server">
-                                                <i class="fas fa-save"></i> Update
-                                            </button>
-                                        </div>
-                                        <div class="col-12">
-                                            <textarea id="jsonglobals" rows="4" class="form-control">
-                                            </textarea>
-                                        </div>
-                                        <div>
-                                            <div id="json_editor" data-role="myjson"></div>
-                                        </div>
+                                    <div class=" btn-group">
+                                        <button class="btn btn-app">
+                                            <i class="fas fa-redo" onclick="load_from_box('jsonglobals'); "
+                                                title="reset to last changues"></i> Reset
+                                        </button>
+                                        <button class="btn btn-app" onclick="extract_json('json_editor',' '); "
+                                            title="save changues to server">
+                                            <i class="fas fa-save"></i> Update
+                                        </button>
+                                    </div>
+                                    <div class="col-12">
+                                        <h5 class="mb-2">json Text Area</h5>
+                                        <textarea id="jsonglobals" rows="8" class="form-control">
+                                                </textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <h5 class="mb-2">Visual editable area</h5>
+                                        <div id="json_editor" data-role="myjson"></div>
                                     </div>
                                     <div class="direct-chat-contacts">
                                         <ul class="contacts-list">
-                                          <li>
-                                            <a href="#">
-                                              <img class="contacts-list-img" src="../dist/img/user1-128x128.jpg">
-                      
-                                              <div class="contacts-list-info">
-                                                <span class="contacts-list-name">
-                                                  Count Dracula
-                                                  <small class="contacts-list-date float-right">2/28/2015</small>
-                                                </span>
-                                                <span class="contacts-list-msg">How have you been? I was...</span>
-                                              </div>
-                                              <!-- /.contacts-list-info -->
-                                            </a>
-                                          </li>
-                                          <!-- End Contact Item -->
+                                            <li>
+                                                <div class="contacts-list-info">
+                                                    <span class="contacts-list-name">
+                                                        Help
+                                                        <small class="contacts-list-date float-right">28/04/2020</small>
+                                                    </span>
+                                                    <span class="contacts-list-msg">Use guide!!</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="contacts-list-info">
+                                                    <span class="contacts-list-name">
+                                                        Reset Button
+                                                    </span>
+                                                    <span class="contacts-list-msg">Convert the json string in visual
+                                                        editable object.</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="contacts-list-info">
+                                                    <span class="contacts-list-name">
+                                                        Update Button
+                                                    </span>
+                                                    <span class="contacts-list-msg">Update ths json string from visual
+                                                        editable object.</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="contacts-list-info">
+                                                    <span class="contacts-list-name">
+                                                        json Text Area
+                                                    </span>
+                                                    <span class="contacts-list-msg">Place to write json text. The text
+                                                        comes from the left form, or you can paste an external code to
+                                                        make it an editable object.</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="contacts-list-info">
+                                                    <span class="contacts-list-name">
+                                                        Visual editable area
+                                                    </span>
+                                                    <span class="contacts-list-msg">The json text becomes editable
+                                                        objects, it is also possible to add new objects.</span>
+                                                </div>
+                                            </li>
                                         </ul>
-                                        <!-- /.contatcts-list -->
-                                      </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-
-            <!-- 
-                <pre data-role="value" data-type="string">
-                    <form class="edit_box">
-                        <input autocomplete="off" placeholder="Click to edit" tooltip="Click to edit" type="text" name="value" style="width: auto; height: auto;">
-                    </form>
-                </pre>
-            -->
-
         </div>
         <footer class="main-footer">
             <div class="float-right d-none d-sm-inline">
@@ -262,6 +288,8 @@
             })
         })
         function addVar(txtToAdd, s, e) {
+            //https://stackoverflow.com/questions/1064089/inserting-a-text-where-cursor-is-using-javascript-jquery
+            //https://stackoverflow.com/questions/714830/selectionstart-end-with-textareas
             var $txt = $("#bodyCode");
             var caretPos = $txt[0].selectionStart;
             var textAreaTxt = $txt.val();
@@ -278,17 +306,18 @@
             return count;
         }
         function doJsonCode() {
-            var o = JSON.stringify(jsonObje(), null, " ")
+            var o = JSON.stringify(jsonObje(), null, "\t")
             json_editor('json_editor', o);
             $('#jsonglobals').text(o)
             // add the jquery editing magic
             apply_editlets();
         }
         function jsonObje() {
+            //https://stackoverflow.com/questions/15009448/creating-a-json-dynamically-with-each-input-value-using-jquery
             var scopes = $("#scope").val();
             var snp = {};
             snp["description"] = $("input[name=description]").val();
-            snp["body"] = $("#bodyCode").val();
+            snp["body"] = [$("#bodyCode").val()];
             snp["prefix"] = $("input[name=prefix]").val();
             snp["scope"] = scopes.join();
             snippet[$("input[name=name]").val()] = snp;
