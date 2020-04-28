@@ -182,6 +182,10 @@
                                             title="save changues to server">
                                             <i class="fas fa-save"></i> Update
                                         </button>
+                                        <button class="btn btn-app" onclick="copyToClipboard('jsonglobals'); "
+                                            title="save changues to server">
+                                            <i class="fas fa-copy"></i></i> Copy snippet
+                                        </button>
                                     </div>
                                     <div class="col-12">
                                         <h5 class="mb-2">json Text Area</h5>
@@ -316,12 +320,21 @@
             //https://stackoverflow.com/questions/15009448/creating-a-json-dynamically-with-each-input-value-using-jquery
             var scopes = $("#scope").val();
             var snp = {};
-                snp["description"] = $("input[name=description]").val();
-                snp["body"] = [$("#bodyCode").val()];
-                snp["prefix"] = $("input[name=prefix]").val();
-                snp["scope"] = scopes.join();
+            snp["description"] = $("input[name=description]").val();
+            snp["body"] = [$("#bodyCode").val()];
+            snp["prefix"] = $("input[name=prefix]").val();
+            snp["scope"] = scopes.join();
             snippet[$("input[name=name]").val()] = snp;
             return snippet;
+        }
+        function copyToClipboard(elementId) {
+            //https://stackoverflow.com/questions/22581345/click-button-copy-to-clipboard-using-jquery
+            var aux = document.createElement("input");
+            aux.setAttribute("value", document.getElementById(elementId).innerHTML);
+            document.body.appendChild(aux);
+            aux.select();
+            document.execCommand("copy");
+            document.body.removeChild(aux);
         }
     </script>
 </body>
