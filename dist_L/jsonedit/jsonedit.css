@@ -8,12 +8,14 @@ pre {
 
 div[data-type="object"] {
     border: 1px solid #fcc;
-    padding-bottom: 8px;
+    padding-bottom: 20px;
+    border-radius: 4px;
 }
 
 div[data-type="array"] {
     border: 1px solid #ccf;
-    padding-bottom: 8px;
+    padding-bottom: 20px;
+    border-radius: 4px;
 }
 
 div[data-role="arrayitem"]>div {
