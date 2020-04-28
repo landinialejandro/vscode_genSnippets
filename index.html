@@ -316,10 +316,10 @@
             //https://stackoverflow.com/questions/15009448/creating-a-json-dynamically-with-each-input-value-using-jquery
             var scopes = $("#scope").val();
             var snp = {};
-            snp["description"] = $("input[name=description]").val();
-            snp["body"] = [$("#bodyCode").val()];
-            snp["prefix"] = $("input[name=prefix]").val();
-            snp["scope"] = scopes.join();
+                snp["description"] = $("input[name=description]").val();
+                snp["body"] = [$("#bodyCode").val()];
+                snp["prefix"] = $("input[name=prefix]").val();
+                snp["scope"] = scopes.join();
             snippet[$("input[name=name]").val()] = snp;
             return snippet;
         }
