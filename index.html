@@ -272,7 +272,8 @@
     <script>
         var snippet = {};
         $(function () {
-
+            $('#bodyCode').css("font-family", "courier");
+            $('#jsonglobals').css("font-family", "courier");
             $('.select2bs4').select2();
             $("#addTab").on('click', function () {
                 var c = counter();
@@ -321,7 +322,7 @@
             var scopes = $("#scope").val();
             var snp = {};
             snp["description"] = $("input[name=description]").val();
-            snp["body"] = [$("#bodyCode").val()];
+            snp["body"] = $('#bodyCode').val().split('\n');
             snp["prefix"] = $("input[name=prefix]").val();
             snp["scope"] = scopes.join();
             snippet[$("input[name=name]").val()] = snp;
