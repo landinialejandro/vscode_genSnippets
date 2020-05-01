@@ -7,4 +7,6 @@ Copy and paste an existing json and easily modify it from the object editor.
 
 Those using VSCode can download a collection of over 100 AppGini snippets for VSCode.
 
+[download here](https://github.com/landinialejandro/vscode_genSnippets/blob/master/landini.code-snippets)
+
 Enjoy it.
