@@ -1,0 +1,718 @@
+{
+	"New custom page acces user": {
+		"description": "Grant access to one or more users Another case is when you want one or more specific users, rather than a whole group, to access the page",
+		"body": [
+			"\tdefine('PREPEND_PATH', '../');",
+			"\t\\$hooks_dir = dirname(__FILE__);",
+			"\tinclude(\"\\$hooks_dir/../defaultLang.php\");",
+			"\tinclude(\"\\$hooks_dir/../language.php\");",
+			"\tinclude(\"\\$hooks_dir/../lib.php\");",
+			"\t/* grant access to the groups 'Admins' and 'Data entry' */",
+			"\t\\$mi = getMemberInfo();",
+			"\tif(!in_array(\\$mi['username'], array('${1:user1}', '${2:user2}'))){",
+			"\t\techo \"Access denied\";",
+			"\t\texit;",
+			"\t}",
+			"\techo \"You can access this page!\";",
+			"\t$0"
+		],
+		"prefix": "ag_customPageUser",
+		"scope": "php"
+	},
+	"New custom page acces group": {
+		"description": "Grant access to one or more groups In case you want all the users that belong to the Admins and Data entry groups (for example) to be able to access your custom page.",
+		"body": [
+			"\tdefine('PREPEND_PATH', '../');",
+			"\t\\$hooks_dir = dirname(__FILE__);",
+			"\tinclude(\"\\$hooks_dir/../defaultLang.php\");",
+			"\tinclude(\"\\$hooks_dir/../language.php\");",
+			"\tinclude(\"\\$hooks_dir/../lib.php\");",
+			"\t/* grant access to the groups 'Admins' and 'Data entry' */",
+			"\t\\$mi = getMemberInfo();",
+			"\tif(!in_array(\\$mi['group'], array('${1:group1}', '${2:group2}'))){",
+			"\t\techo \"Access denied\";",
+			"\t\texit;",
+			"\t}",
+			"\techo \"You can access this page!\";",
+			"\t$0"
+		],
+		"prefix": "ag_customPageGroup",
+		"scope": "php"
+	},
+	"Integrate the page appearance into your AppGini application": {
+		"description": "After controlling access to your custom page, the next step is to customize its appearance so that it matches the rest of the application pages.",
+		"body": [
+			"\tdefine('PREPEND_PATH', '../');",
+			"\t\\$hooks_dir = dirname(__FILE__);",
+			"\tinclude(\"\\$hooks_dir/../defaultLang.php\");",
+			"\tinclude(\"\\$hooks_dir/../language.php\");",
+			"\tinclude(\"\\$hooks_dir/../lib.php\");",
+			"\tinclude_once(\"\\$hooks_dir/../header.php\");",
+			"\t/* grant access to all logged users */",
+			"\t\\$mi = getMemberInfo();",
+			"\tif(!\\$mi['username'] || \\$mi['username'] == 'guest'){",
+			"\t\techo \"Access denied\";",
+			"\t\texit;",
+			"\t}",
+			"\techo \"You can access this page!\";",
+			"\tinclude_once(\"$hooks_dir/../footer.php\");",
+			"\t$0"
+		],
+		"prefix": "ag_integrateAppearance",
+		"scope": "php"
+	},
+	"sets HTTP headers": {
+		"body": "set_headers();$0",
+		"prefix": "ag_set_headers",
+		"description": "incFunctions - sets HTTP headers (encoding, sameorigin frame policy, .. etc)",
+		"scope": "php"
+	},
+	"returns an associative array of all tables": {
+		"body": "getTableList();$0",
+		"prefix": "ag_getTableList",
+		"description": "incFunctions - returns an associative array of all tables in this application in the format tableName=>tableCaption",
+		"scope": "php"
+	},
+	"returns an associative array specifying the thumbnail data": {
+		"body": "getThumbnailSpecs(${1:\\$tableName}, ${2:\\$fieldName}, ${3:\\$view});$0",
+		"prefix": "ag_getThumbnailSpecs",
+		"description": "incFunctions - returns an associative array specifying the width, height and identifier of the thumbnail file.",
+		"scope": "php"
+	},
+	"create Thumbnail": {
+		"body": "createThumbnail(${1:\\$img}, ${2:\\$specs});$0",
+		"prefix": "ag_createThumbnail",
+		"description": "incFunctions - $specs is an array as returned by getThumbnailSpecs(). Returns true on success, false on failure.",
+		"scope": "php"
+	},
+	"makeSafe": {
+		"body": "makeSafe(${1:\\$string});$0",
+		"prefix": "ag_makeSafe",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"checkPermissionVal": {
+		"body": "checkPermissionVal(${1:\\$pvn});$0",
+		"prefix": "ag_checkPermissionVal",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"get sql result": {
+		"body": "sql(${1:\\$statment}, ${2:\\$o});$0",
+		"prefix": "ag_sql",
+		"description": "incFunctions - get sql result",
+		"scope": "php"
+	},
+	"get sql result large": {
+		"body": "\\$res = sql(\"SELECT ${1:\\$selectstr} FROM ${2:\\$fromstr} WHERE ${3:\\$wherestr} \", ${4:\\$o});$0",
+		"prefix": "ag_sql_large",
+		"description": "landini - get sql result",
+		"scope": "php"
+	},
+	"get sql result x-large": {
+		"body": [
+				"\t\\$table_from = get_sql_from(\"${1:table_name}\");",
+				"\t\\$table_fields = get_sql_fields(\"${1:table_name}\");",
+				"\t\\$where = \"${2:where}\"; // this where must be start with AND like: \"AND `${1:table_name}`.`id`=1\" or just leave empty",
+				"\t\\$sql=\"SELECT {\\$table_fields} FROM {\\$table_from} \" . \\$where . \";\";",
+				"\t\\$res = db_fetch_assoc(sql(\\$sql, ${3:\\$eo}));$0"
+			],
+		"prefix": "ag_sql_xlarge",
+		"description": "landini - get full result with all formatted data from table",
+		"scope": "php"
+	},
+	"get one value sql": {
+		"body": "\\$res = sqlValue(${1:\\$statment});$0",
+		"prefix": "ag_sqlValue",
+		"description": "incFunctions - return a data value form data base",
+		"scope": "php"
+	},
+	"get one value sql large": {
+		"body": "\\$res = sqlValue(\"SELECT ${1:field} FROM ${2:tableName} WHERE ${3:whereCondition};\");$0",
+		"prefix": "ag_sqlValue_large",
+		"description": "landini - return a data value form data base",
+		"scope": "php"
+	},
+	"get Logged Admin": {
+		"body": "getLoggedAdmin();$0",
+		"prefix": "ag_getLoggedAdmin",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"check User": {
+		"body": "checkUser(${1:\\$username, ${1:\\$password});$0",
+		"prefix": "ag_checkUser",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"log Out User": {
+		"body": "logOutUser();$0",
+		"prefix": "ag_logOutUser",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"get PK Field Name": {
+		"body": "getPKFieldName(${1:\\$tn});$0",
+		"prefix": "ag_getPKFieldName",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"get CSV Data": {
+		"body": "getCSVData(${1:\\$tn}, ${2:\\$pkValue}, ${3:true});$0",
+		"prefix": "ag_getCSVData",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"error Msg": {
+		"body": "errorMsg(${1:\\$msg});$0",
+		"prefix": "ag_errorMsg",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"redirect": {
+		"body": "redirect(${1:\\$URL}, ${2:false});$0",
+		"prefix": "ag_redirect",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"html Radio Group": {
+		"body": "htmlRadioGroup(${1:\\$name}, ${2:\\$arrValue}, ${3:\\$arrCaption}, ${4:\\$selectedValue}, ${5:\\$selClass=\"\"}, ${6:\\$class=\"\"}, ${7:\\$separator=\"<br>\"});$0",
+		"prefix": "ag_htmlRadioGroup",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"html Select": {
+		"body": "htmlSelect(${1:\\$name}, ${2:\\$arrValue}, ${3:\\$arrCaption}, ${4:\\$selectedValue}, ${5:\\$class=\"\"}, ${6:\\$selectedClass=\"\"});$0",
+		"prefix": "ag_htmlSelect",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"html SQL Select": {
+		"body": "htmlSQLSelect(${1:\\$name}, ${2:\\$sql}, ${3:\\$selectedValue}, $4:class=\"\"}, ${5:\\$selectedClass=\"\"});$0",
+		"prefix": "ag_htmlSQLSelect",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"is Email": {
+		"body": "isEmail(${1:\\$email});$0",
+		"prefix": "ag_isEmail",
+		"description": "incFunctions - returns $email if valid or false otherwise.",
+		"scope": "php"
+	},
+	"notify Member Approval": {
+		"body": "notifyMemberApproval(${1:\\$memberID});$0",
+		"prefix": "ag_notifyMemberApproval",
+		"description": "incFunctions - send an email to member acknowledging his approval by admin, returns false if no mail is sent",
+		"scope": "php"
+	},
+	"setup Membership": {
+		"body": "setupMembership();$0",
+		"prefix": "ag_setupMembership",
+		"description": "incFunctions - check if membership tables exist or not. If not, create them.",
+		"scope": "php"
+	},
+	"this Or": {
+		"body": "thisOr(${1:\\$this_val}, ${2:\\$or});$0",
+		"prefix": "ag_thisOr",
+		"description": "incFunctions - return $this_val if it has a value, or $or if not.",
+		"scope": "php"
+	},
+	"get Uploaded File": {
+		"body": "getUploadedFile(${1:\\$FieldName}, ${2:\\$MaxSize=0}, ${3:\\$FileTypes='csv|txt'}, ${4:false}, ${5:\\$dir=''});$0",
+		"prefix": "ag_getUploadedFile",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"to Bytes": {
+		"body": "toBytes(${1:\\$val});$0",
+		"prefix": "ag_toBytes",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"convert Legacy Options": {
+		"body": "convertLegacyOptions(${1:\\$CSVList});$0",
+		"prefix": "ag_convertLegacyOptions",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"get Value Given Caption": {
+		"body": "getValueGivenCaption(${1:\\$query}, ${2:\\$caption});$0",
+		"prefix": "ag_getValueGivenCaption",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"undo magic quotes": {
+		"body": "undo_magic_quotes(${1:\\$str});$0",
+		"prefix": "ag_undo_magic_quotes",
+		"description": "incFunctions -",
+		"scope": "php"
+	},
+	"time in 24h format": {
+		"body": "time24(${1:\\$t});$0",
+		"prefix": "ag_time24",
+		"description": "incFunctions - return time in 24h format",
+		"scope": "php"
+	},
+	"time in 12h format": {
+		"body": "time12(${1:\\$t});$0",
+		"prefix": "ag_time12",
+		"description": "incFunctions - return time in 12h format",
+		"scope": "php"
+	},
+	"return absolute URL": {
+		"body": "application_url(${1:\\$page});$0",
+		"prefix": "ag_application_url",
+		"description": "incFunctions - return absolute URL of provided page",
+		"scope": "php"
+	},
+	"return true if this is an ajax request": {
+		"body": "is_ajax();$0",
+		"prefix": "ag_is_ajax",
+		"description": "incFunctions - return true if this is an ajax request, false otherwise",
+		"scope": "php"
+	},
+	"recursively trim": {
+		"body": "array_trim(${1:\\$arr});$0",
+		"prefix": "ag_array_trim",
+		"description": "incFunctions - recursively trim provided value/array",
+		"scope": "php"
+	},
+	"is allowed username": {
+		"body": "is_allowed_username(${1:\\$username}, ${2:\\$exception = false});$0",
+		"prefix": "ag_is_allowed_username",
+		"description": "incFunctions - returns username if valid and unique, or false otherwise (if exception is provided and same as username, no uniqueness check is performed)",
+		"scope": "php"
+	},
+	"csrf token": {
+		"body": "csrf_token(${1:\\$validate});$0",
+		"prefix": "ag_csrf_token",
+		"description": "incFunctions - csrfproof a form",
+		"scope": "php"
+	},
+	"scans for installed plugins": {
+		"body": "get_plugins();$0",
+		"prefix": "ag_get_plugins",
+		"description": "incFunctions - scans for installed plugins and returns them in an array ('name', 'title', 'icon' or 'glyphicon', 'admin_path')",
+		"scope": "php"
+	},
+	"maintenance mode status": {
+		"body": "maintenance_mode(${1:\\$new_status = ''});$0",
+		"prefix": "ag_maintenance_mode",
+		"description": "incFunctions - retrieves (and optionally sets) maintenance mode status",
+		"scope": "php"
+	},
+	"html attr": {
+		"body": "html_attr(${1:\\$str});$0",
+		"prefix": "ag_html_attr",
+		"description": "incFunctions - prepare $str to be placed inside an HTML attribute",
+		"scope": "php"
+	},
+	"html attr tags": {
+		"body": "html_attr_tags_ok(${1:\\$str});$0",
+		"prefix": "ag_html_attr_tags_ok",
+		"description": "incFunctions - same as html_attr, but allowing HTML tags",
+		"scope": "php"
+	},
+	"providing sanitized values of given request variable": {
+		"body": "Request(${1:\\$var});$0",
+		"prefix": "ag_Request",
+		"description": "incFunctions - class for providing sanitized values of given request variable (>sql, >attr, >html, >url, and >raw)",
+		"scope": "php"
+	},
+	" providing a standardized html notifications": {
+		"body": "Notification();$0",
+		"prefix": "ag_Notification",
+		"description": "incFunctions - class for providing a standardized html notifications functionality",
+		"scope": "php"
+	},
+	"sends an email using PHPMailer": {
+		"body": "sendmail(${1:\\$mail});$0",
+		"prefix": "ag_sendmail",
+		"description": "incFunctions - sends an email using PHPMailer as specified in the assoc array $mail( ['to', 'name', 'subject', 'message', 'debug'] ) and returns true on success or an error message on failure",
+		"scope": "php"
+	},
+	"sanitize HTML strings": {
+		"body": "safe_html(${1:\\$str});$0",
+		"prefix": "ag_safe_html",
+		"description": "incFunctions - sanitize HTML strings, and apply nl2br() to nonHTML ones",
+		"scope": "php"
+	},
+	"retrieves table properties as a 2D assoc array": {
+		"body": "get_tables_info(${1:false});$0",
+		"prefix": "ag_get_tables_info",
+		"description": "incFunctions - retrieves table properties as a 2D assoc array ['table_name' => ['prop1' => 'val', ..], ..]",
+		"scope": "php"
+	},
+	"returns memberID of logged member": {
+		"body": "getLoggedMemberID();$0",
+		"prefix": "ag_getLoggedMemberID",
+		"description": "incFunctions - returns memberID of logged member. If no login, returns anonymous memberID",
+		"scope": "php"
+	},
+	"returns groupID of logged member": {
+		"body": "getLoggedGroupID();$0",
+		"prefix": "ag_getLoggedGroupID",
+		"description": "incFunctions - returns groupID of logged member, or anonymous groupID",
+		"scope": "php"
+	},
+	"returns currently signedin member's info": {
+		"body": "getMemberInfo();$0",
+		"prefix": "ag_getMemberInfo",
+		"description": "incFunctions - returns an array containing the currently signedin member's info",
+		"scope": "php"
+	},
+	"returns groupID of given user": {
+		"body": "get_group_id(${1:\\$user = ''});$0",
+		"prefix": "ag_get_group_id",
+		"description": "incFunctions - returns groupID of given user, or current one if empty",
+		"scope": "php"
+	},
+	"data for a SET or WHERE claus": {
+		"body": "prepare_sql_set(${1:\\$set_array}, ${2$glue = ', '});$0",
+		"prefix": "ag_prepare_sql_set",
+		"description": "incFunctions - Prepares data for a SET or WHERE clause, to be used in an INSERT/UPDATE query",
+		"scope": "php"
+	},
+	"Inserts a record specified to the given table": {
+		"body": "insert(${1:\\$tn}, ${1:\\$set_array});$0",
+		"prefix": "ag_insert",
+		"description": "incFunctions - Inserts a record specified by $set_array to the given table $tn",
+		"scope": "php"
+	},
+	"Updates a record identified": {
+		"body": "update(${1:\\$tn}, ${2:\\$set_array}, ${3:\\$where_array});$0",
+		"prefix": "ag_update",
+		"description": "incFunctions - Updates a record identified by $where_array to date specified by $set_array in the given table $tn",
+		"scope": "php"
+	},
+	"Set/update the owner": {
+		"body": "set_record_owner(${1:\\$tn}, ${2:\\$pk}, ${3:\\$user});$0",
+		"prefix": "ag_set_record_owner",
+		"description": "incFunctions - Set/update the owner of given record",
+		"scope": "php"
+	},
+	"get date/time format string": {
+		"body": "app_datetime_format(${1:\\$destination = 'php'}, ${2:\\$datetime = 'd'});$0",
+		"prefix": "ag_app_datetime_format",
+		"description": "incFunctions - get date/time format string for use with one of these: 'php' (see date function), 'mysql', 'moment'. $datetime: 'd' = date, 't' = time, 'dt' = both",
+		"scope": "php"
+	},
+	"converts $app_datetime to mysqlformatted datetime": {
+		"body": "mysql_datetime(${1:\\$app_datetime});$0",
+		"prefix": "ag_mysql_datetime",
+		"description": "incFunctions - converts $app_datetime to mysqlformatted datetime, 'yyyymmdd H:i:s', or empty string on error",
+		"scope": "php"
+	},
+	"converts $mysql_datetime to appformatted": {
+		"body": "app_datetime(${1:\\$mysql_datetime}, ${2:\\$datetime = 'd'});$0",
+		"prefix": "ag_app_datetime",
+		"description": "incFunctions - converts $mysql_datetime to appformatted datetime (if 2nd param is 'dt'), or empty string on error",
+		"scope": "php"
+	},
+	"converts string from appconfigured": {
+		"body": "to_utf8(${1:\\$str});$0",
+		"prefix": "ag_to_utf8",
+		"description": "incFunctions - converts string from appconfigured encoding to utf8",
+		"scope": "php"
+	},
+	"converts string from utf8": {
+		"body": "from_utf8(${1:\\$str});$0",
+		"prefix": "ag_from_utf8",
+		"description": "incFunctions - converts string from utf8 to appconfigured encoding",
+		"scope": "php"
+	},
+	"membership table functions": {
+		"body": "membership_table_functions();$0",
+		"prefix": "ag_membership_table_functions",
+		"description": "incFunctions - returns a list of update_membership_* functions",
+		"scope": "php"
+	},
+	"sets up anonymous group and guest": {
+		"body": "configure_anonymous_group();$0",
+		"prefix": "ag_configure_anonymous_group",
+		"description": "incFunctions - sets up anonymous group and guest user if necessary",
+		"scope": "php"
+	},
+	"sets up admins group and super admin": {
+		"body": "configure_admin_group();$0",
+		"prefix": "ag_configure_admin_group",
+		"description": "incFunctions - sets up admins group and super admin user if necessary",
+		"scope": "php"
+	},
+	"returns keys": {
+		"body": "get_table_keys(${1:\\$tn});$0",
+		"prefix": "ag_get_table_keys",
+		"description": "incFunctions - returns keys (indexes) of given table",
+		"scope": "php"
+	},
+	"returns fields spec": {
+		"body": "get_table_fields(${1:\\$tn});$0",
+		"prefix": "ag_get_table_fields",
+		"description": "incFunctions - returns fields spec for given table",
+		"scope": "php"
+	},
+	"sets up membership table": {
+		"body": "update_membership_${1:\\$tn}();$0",
+		"prefix": "ag_update_membership_{tn}",
+		"description": "incFunctions - sets up membership table tn and its indexes if necessary",
+		"scope": "php"
+	},
+	"perform a test and return results": {
+		"body": "test(${1:\\$subject}, ${2:\\$test});$0",
+		"prefix": "ag_test",
+		"description": "incFunctions - perform a test and return results",
+		"scope": "php"
+	},
+	"invoke a private/protected method": {
+		"body": "invoke_method(${1:\\$object}, ${2:\\$methodName}, ${3:\\$param_array});$0",
+		"prefix": "ag_invoke_method",
+		"description": "incFunctions - invoke a private/protected method of a given object",
+		"scope": "php"
+	},
+	"invoke a private/protected method statically": {
+		"body": "invoke_static_method(${1:\\$class}, ${2:\\$methodName}, ${3:\\$param_array});$0",
+		"prefix": "ag_invoke_static_method",
+		"description": "incFunctions - invoke a private/protected method of a given class statically",
+		"scope": "php"
+	},
+	"returns an associative array tables": {
+		"body": "getTableList();$0",
+		"prefix": "ag_getTableList",
+		"description": "incCommon - returns an associative array (tableName => tableData, tableData is array(tableCaption, tableDescription, tableIcon)) of tables accessible by current user",
+		"scope": "php"
+	},
+	"returns an associative array groups": {
+		"body": "get_table_groups();$0",
+		"prefix": "ag_get_table_groups",
+		"description": "incCommon - returns an associative array (table_group => tables_array)",
+		"scope": "php"
+	},
+	"checks POST login": {
+		"body": "logInMember();$0",
+		"prefix": "ag_logInMember",
+		"description": "incCommon - checks POST login. If not valid, redirects to index.php, else returns TRUE",
+		"scope": "php"
+	},
+	"returns an array of permissions allowed": {
+		"body": "getTablePermissions(${1:\\$tn});$0",
+		"prefix": "ag_getTablePermissions",
+		"description": "incCommon - returns an array of permissions allowed for logged member to given table (allowAccess, allowInsert, allowView, allowEdit, allowDelete) ",
+		"scope": "php"
+	},
+	"returns the SELECT part": {
+		"body": "get_sql_fields(${1:\\$tn});$0",
+		"prefix": "ag_get_sql_fields",
+		"description": "incCommon - returns the SELECT part of the table view query",
+		"scope": "php"
+	},
+	"returns the FROM part": {
+		"body": "get_sql_from(${1:\\$tn}, true,  false);$0",
+		"prefix": "ag_get_sql_from",
+		"description": "incCommon - returns the FROM part of the table view query, with full joins (unless third paramaeter is set to true), optionally skipping permissions if true passed as 2nd param.",
+		"scope": "php"
+	},
+	"returns assoc array of record values": {
+		"body": "get_joined_record(${1:\\$table}, ${2:\\$id}, true);$0",
+		"prefix": "ag_get_joined_record",
+		"description": "incCommon - returns assoc array of record values for given PK value of given table, with full joins, optionally skipping permissions if true passed as 3rd param.",
+		"scope": "php"
+	},
+	"returns assoc array of table fields": {
+		"body": "get_defaults(${1:\\$table});$0",
+		"prefix": "ag_get_defaults",
+		"description": "incCommon - returns assoc array of table fields as array keys and default values (or empty), excluding automatic values as array values",
+		"scope": "php"
+	},
+	"returns html code for displaying": {
+		"body": "htmlUserBar();$0",
+		"prefix": "ag_htmlUserBar",
+		"description": "incCommon - returns html code for displaying user login status to be used on top of pages.",
+		"scope": "php"
+	},
+	"returns html code for displaying a notification": {
+		"body": "showNotifications(${1:\\$msg}, ${2:\\$class});$0",
+		"prefix": "ag_showNotifications",
+		"description": "incCommon - returns html code for displaying a notification. If no parameters provided, processes the GET request for possible notifications.",
+		"scope": "php"
+	},
+	"returns a if valid mysql date": {
+		"body": "parseMySQLDate(${1:\\$date}, ${2:\\$altDate});$0",
+		"prefix": "ag_parseMySQLDate",
+		"description": "incCommon - returns a if valid mysql date, or b if valid mysql date, or today if b is true, or empty if b is false.",
+		"scope": "php"
+	},
+	"calculates and returns special values": {
+		"body": "parseCode(${1:\\$code});$0",
+		"prefix": "ag_parseCode",
+		"description": "incCommon - calculates and returns special values to be inserted in automatic fields.",
+		"scope": "php"
+	},
+	"enforce a filter over data": {
+		"body": "addFilter(${1:\\$index}, ${2:\\$filterAnd}, ${3:\\$filterField}, ${4:\\$filterOperator}, ${5:\\$filterValue});$0",
+		"prefix": "ag_addFilter",
+		"description": "incCommon - enforce a filter over data",
+		"scope": "php"
+	},
+	"clear all filters": {
+		"body": "clearFilters();$0",
+		"prefix": "ag_clearFilters",
+		"description": "incCommon - clear all filters",
+		"scope": "php"
+	},
+	"passes $data to templates/$view.php": {
+		"body": "loadView(${1:\\$view}, ${2:\\$data});$0",
+		"prefix": "ag_loadView",
+		"description": "incCommon - passes $data to templates/{$view}.php and returns the output",
+		"scope": "php"
+	},
+	"loads table template": {
+		"body": "loadTable(${1:\\$table}, ${2:\\$data});$0",
+		"prefix": "ag_loadTable",
+		"description": "incCommon - loads table template, passing $data to it",
+		"scope": "php"
+	},
+	"applies cascading drop": {
+		"body": "filterDropdownBy(${1:\\$filterable}, ${2:\\$filterers}, ${3:\\$parentFilterers}, ${4:\\$parentPKField}, ${5:\\$parentCaption}, ${6:\\$parentTable}, &${7:\\$filterableCombo});$0",
+		"prefix": "ag_filterDropdownBy",
+		"description": "incCommon - applies cascading drop",
+		"scope": "php"
+	},
+	"replaces all variations of HTML": {
+		"body": "br2nl(${1:\\$text});$0",
+		"prefix": "ag_br2nl",
+		"description": "incCommon - replaces all variations of HTML <br> tags with a new line character",
+		"scope": "php"
+	},
+	"inverse of htmlspecialchars": {
+		"body": "htmlspecialchars_decode(${1:\\$text});$0",
+		"prefix": "ag_htmlspecialchars_decode",
+		"description": "incCommon - inverse of htmlspecialchars()",
+		"scope": "php"
+	},
+	"convert unicode entities": {
+		"body": "entitiesToUTF8(${1:\\$text});$0",
+		"prefix": "ag_entitiesToUTF8",
+		"description": "incCommon - convert unicode entities (e.g. &#1234;) to actual UTF8 characters, requires multibyte string PHP extension",
+		"scope": "php"
+	},
+	"returns an array of arguments": {
+		"body": "func_get_args_byref();$0",
+		"prefix": "ag_func_get_args_byref",
+		"description": "incCommon - returns an array of arguments passed to a function, by reference",
+		"scope": "php"
+	},
+	"returns an array containing the FROM and WHERE": {
+		"body": "permissions_sql(${1:\\$table}, ${2:\\$level});$0",
+		"prefix": "ag_permissions_sql",
+		"description": "incCommon - returns an array containing the FROM and WHERE additions for applying permissions to an SQL query",
+		"scope": "php"
+	},
+	"returns html code for a styled error message": {
+		"body": "error_message(${1:\\$msg}, ${2:\\$back_url});$0",
+		"prefix": "ag_error_message",
+		"description": "incCommon - returns html code for a styled error message .. pass explicit false in second param to suppress back button",
+		"scope": "php"
+	},
+	"to MySQL Date": {
+		"body": "toMySQLDate(${1:\\$formattedDate}, ${2:\\$sep = datalist_date_separator}, ${3:\\$ord = datalist_date_format});$0",
+		"prefix": "ag_toMySQLDate",
+		"description": "incCommon -",
+		"scope": "php"
+	},
+	"returns a copy of the given array": {
+		"body": "reIndex(&${1:\\$arr});$0",
+		"prefix": "ag_reIndex",
+		"description": "incCommon - returns a copy of the given array, with keys replaced by 1",
+		"scope": "php"
+	},
+	"returns embed code for a given url": {
+		"body": "get_embed(${1:\\$provider}, ${2:\\$url[}, ${3:\\$width}, ${4:\\$height}, ${5:\\$retrieve]});$0",
+		"prefix": "ag_get_embed",
+		"description": "incCommon - returns embed code for a given url (supported providers: youtube, googlemap)",
+		"scope": "php"
+	},
+	"returns true if current user has permission": {
+		"body": "check_record_permission(${1:\\$table}, ${2:\\$id}, ${3:\\$perm = 'view'});$0",
+		"prefix": "ag_check_record_permission",
+		"description": "incCommon - returns true if current user has the specified permission $perm ('view', 'edit' or 'delete') for the given recors, false otherwise",
+		"scope": "php"
+	},
+	"returns the HTML code for the top navigation menus": {
+		"body": "NavMenus(${1:\\$options});$0",
+		"prefix": "ag_NavMenus",
+		"description": "incCommon - returns the HTML code for the top navigation menus. $options is not implemented currently.",
+		"scope": "php"
+	},
+	"returns the HTML code for included style": {
+		"body": "StyleSheet();$0",
+		"prefix": "ag_StyleSheet",
+		"description": "incCommon - returns the HTML code for included style sheet files to be placed in the <head> section.",
+		"scope": "php"
+	},
+	"get Upload Dir": {
+		"body": "getUploadDir(${1:\\$dir});$0",
+		"prefix": "ag_getUploadDir",
+		"description": "incCommon - if dir is empty, returns upload dir configured in defaultLang.php, else returns $dir.",
+		"scope": "php"
+	},
+	"Prepare Uploaded File": {
+		"body": "PrepareUploadedFile(${1:\\$FieldName}, ${2:\\$MaxSize}, ${3:\\$FileTypes='jpg|jpeg|gif|png'}, ${4:false}, ${5:\\$dir=\"\"});$0",
+		"prefix": "ag_PrepareUploadedFile",
+		"description": "incCommon - validates and moves uploaded file for given $FieldName into the given $dir (or the default one if empty)",
+		"scope": "php"
+	},
+	"get home links": {
+		"body": "get_home_links(${1:\\$homeLinks}, ${2:\\$default_classes}, ${3:\\$tgroup});$0",
+		"prefix": "ag_get_home_links",
+		"description": "incCommon - process $homeLinks array and return custom links for homepage. Applies $default_classes to links if links have classes defined, and filters links by $tgroup (using '*' matches all table_group values)",
+		"scope": "php"
+	},
+	"quick search html": {
+		"body": "quick_search_html(${1:\\$search_term}, ${2:\\$label}, ${3:\\$separate_dv = true});$0",
+		"prefix": "ag_quick_search_html",
+		"description": "incCommon - returns HTML code for the quick search box.",
+		"scope": "php"
+	},
+	"Error modal js windows":{
+		"body": [
+			"\tmodal_window({",
+			"\t\tmessage: '<div class=\"alert alert-danger\"> ${1:errorMessage} </div>',",
+			"\t\ttitle: '${2:ErrorTitle}',",
+			"\t\tclose: function(){",
+			"\t\t\t\\$j('#${3:fieldname}').parents('.form-group').addClass('has-error').focus();",
+			"\t\t}",
+			"\t});$0",
+		],
+		"prefix": "ag_error_modal",
+		"description": "landini - open error modal windows",
+		"scope": "javascript"
+
+	},
+	"Warning modal js windows":{
+		"body": [
+			"\tmodal_window({",
+			"\t\tmessage: '<div class=\"alert alert-warning\"> ${1:errorMessage} </div>',",
+			"\t\ttitle: '${2:ErrorTitle}',",
+			"\t\tclose: function(){",
+			"\t\t\t\\$j('#${3:fieldname}').parents('.form-group').addClass('has-error').focus();",
+			"\t\t}",
+			"\t});$0",
+		],
+		"prefix": "ag_warning_modal",
+		"description": "landini - open warning modal windows",
+		"scope": "javascript"
+
+	},
+	"is add new form":{
+		"body": "var add_new_mode = (!\\$j('input[name=SelectedID]').val());$0",
+		"prefix": "ag_is_add_new",
+		"description": "landini - to know if de current open DV windows is a new record or not",
+		"scope": "javascript"
+	},
+	"get the current table name":{
+		"body": "var tn = AppGini.currentTableName();$0",
+		"prefix": "ag_TableName",
+		"description": "landini - get the current table name",
+		"scope": "javascript"
+	}
+}
