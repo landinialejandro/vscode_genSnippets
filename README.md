@@ -9,4 +9,8 @@ Those using VSCode can download a collection of over 100 AppGini snippets for VS
 
 [download here](https://github.com/landinialejandro/vscode_genSnippets/blob/master/landini.code-snippets)
 
+# NEW! try it the app
+
+[from here](http://landini.com.ar/sys/snippetsGen/index.php)
+
 Enjoy it.
